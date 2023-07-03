@@ -14,8 +14,8 @@ export class AppComponent {
   title = 'ang-geonotipwa';
 
   constructor(swPush: SwPush, pushService: PushNotificationService) {
-    //tsekataan että oikea asiakas on varmasti tulossa, eikä esimerkiksi valeasiakas.
-    // PYYNNÖT PALVELIMELLE KANNATTAA AINA TEHDÄ SERVICEEN, EI KOSKAAN KOMPONENTTIIN NIINKUIN TÄSSÄ.
+    // tsekataan että oikea asiakas on varmasti tulossa, eikä esimerkiksi valeasiakas.
+  
     if (swPush.isEnabled) {
       swPush
         .requestSubscription({
