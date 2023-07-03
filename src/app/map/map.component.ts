@@ -17,7 +17,7 @@ export class MapComponent implements AfterViewInit {
   lat: number;
   lon: number;
 
-  /*laitetaan alkuarvot konstruktoriin, erityisesti jos käytetään
+  /* laitetaan alkuarvot konstruktoriin, erityisesti jos käytetään
    tarkkaa tyypin määrittelyä.
    */
   constructor() {
@@ -32,9 +32,9 @@ export class MapComponent implements AfterViewInit {
   ngAfterViewInit(): void {
     this.initMap();
   }
-  //luodaan kartta. map on L moduulin metodi.
+  // luodaan kartta. map on L moduulin metodi.
   private initMap(): void {
-    //watchPosition muuttaa sijaintia tausta-ajona, jos käyttäjä liikkuu.
+    // watchPosition muuttaa sijaintia tausta-ajona, jos käyttäjä liikkuu.
     // selainta ei tarvitse hreffata, jotta sijainti päivittyisi.
     navigator.geolocation.watchPosition((position) => {
       this.latlng = new L.LatLng(
@@ -53,15 +53,15 @@ export class MapComponent implements AfterViewInit {
           '&copy; <a href="https://openstreetmap.org/copyright">OpenStreetMap contributors</a>',
       }).addTo(this.map);
 
-      // show the scale bar on the lower left corner
+      
       L.control.scale().addTo(this.map);
 
-      // show a marker on the map
+     
       L.marker(this.latlng)
         .bindPopup('The center of the world')
         .addTo(this.map);
 
-      //koortinaatti, jolloin notifikaatio heitetään.
+      // koortinaatti, jolloin notifikaatio heitetään.
 
       if (this.lat > 62) {
         this.notifyMe();
@@ -72,14 +72,14 @@ export class MapComponent implements AfterViewInit {
   //typescriptissä ei ole funktioita, ainoastaan metodeja, joita kutsutaan.
   // lupa notifikaatioille löytyy käyttäjäm selaimen asetuksista.
   notifyMe() {
-    // Let's check if the browser supports notifications
+    // Tukeeko selain notifikaatioita
     if (!('Notification' in window)) {
       alert('This browser does not support desktop notification');
     }
 
     // onko notifikaatiot sallittu, jos on niin suoraan notia kehiin.
     else if (Notification.permission === 'granted') {
-      // If it's okay let's create a notification
+      // Luo noti
       const notification = new Notification(
         'Olet nyt 62 leveyspiirin poh.puolella'
       );
@@ -88,7 +88,7 @@ export class MapComponent implements AfterViewInit {
     // jos notifikaatiot on estetty, kysyy lupaa.
     else if (Notification.permission !== 'denied') {
       Notification.requestPermission().then(function (permission) {
-        // If the user accepts, let's create a notification
+        
         if (permission === 'granted') {
           const notification = new Notification(
             'Olet nyt 62 leveyspohpuolella.'
@@ -97,7 +97,6 @@ export class MapComponent implements AfterViewInit {
       });
     }
 
-    // At last, if the user has denied notifications, and you
-    // want to be respectful there is no need to bother them any more.
+   
   }
 }
